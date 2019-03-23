@@ -36,8 +36,11 @@ df['income']=df['income'].map({'less20':0,'20to40':0.5,'more40':1})
 df['license']=df['license'].map({'yes':1,'no':0})
 df['weekend']=df['weekend'].map({'yes':1,'no':0})
 
-df.drop("mode_main",axis=1,inplace=True)
+#df.drop("mode_main",axis=1,inplace=True)
+
+df.drop("diversity",axis=1,inplace=True)
 df=df[:20000]
+
 from sklearn import preprocessing 
 min_max_scaler = preprocessing.MinMaxScaler()
 datanorm = min_max_scaler.fit_transform(df)
@@ -73,7 +76,7 @@ plt.show()
 from sklearn.cluster import DBSCAN
 import numpy
 
-pos_eps=[0.2,0.25,0.30,0.35,0.40,0.45,0.5,0.55]
+pos_eps=[0.25,0.30,0.35,0.40]
 results=[]
 for opt in pos_eps:
     print("\nCon eps: {} ".format(opt))
@@ -93,9 +96,10 @@ for opt in pos_eps:
     numbers = numpy.arange(len(X_pca))
     fig, ax = plt.subplots()
     for i in range(len(X_pca)):
-        plt.text(X_pca[i][0], X_pca[i][1], numbers[i], color=colors[labels[i]]) 
-    plt.xlim(-1, 4)
-    plt.ylim(-0.2, 1)
+        plt.plot(X_pca[i][0], X_pca[i][1],marker='.', color=colors[labels[i]]) 
+        #plt.text(X_pca[i][0], X_pca[i][1], numbers[i], color=colors[labels[i]]) 
+    plt.xlim(-1, 1)
+    plt.ylim(-1, 1.5)
     ax.grid(True)
     fig.tight_layout()
     plt.show()
