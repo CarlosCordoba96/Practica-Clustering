@@ -38,6 +38,7 @@ df['weekend']=df['weekend'].map({'yes':1,'no':0})
 
 #df.drop("mode_main",axis=1,inplace=True)
 
+df.drop("ethnicity",axis=1,inplace=True)
 df.drop("diversity",axis=1,inplace=True)
 df=df[:20000]
 
@@ -50,6 +51,29 @@ datanorm = min_max_scaler.fit_transform(df)
 from sklearn.decomposition import PCA
 estimator = PCA (n_components = 4)
 X_pca = estimator.fit_transform(datanorm)
+import numpy
+print(estimator.explained_variance_ratio_) 
+x=0
+for i in estimator.explained_variance_ratio_:
+    x=x+i
+print(x)
+
+#PCA
+import matplotlib.pyplot as plt
+numbers = numpy.arange(len(X_pca))
+fig, ax = plt.subplots()
+for i in range(len(X_pca)):
+    plt.plot(X_pca[i][0], X_pca[i][1],marker='.',color='k') 
+plt.xlim(-1, 1)
+plt.ylim(-1,1.5)
+ax.grid(True)
+plt.show()
+
+
+
+
+
+
 minPts=500
 
 
@@ -76,7 +100,7 @@ plt.show()
 from sklearn.cluster import DBSCAN
 import numpy
 
-pos_eps=[0.25,0.30,0.35,0.40]
+pos_eps=[0.35,0.40,0.42]
 results=[]
 for opt in pos_eps:
     print("\nCon eps: {} ".format(opt))
@@ -116,8 +140,16 @@ for opt in pos_eps:
     res = df.groupby(('group')).mean()
     results.append(res)
 
-
+df.to_csv("clusters.csv", encoding='utf-8', index=False)
 #
+
+
+
+
+
+
+
+
 
 
 #
