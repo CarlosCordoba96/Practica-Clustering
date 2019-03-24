@@ -100,7 +100,7 @@ plt.show()
 from sklearn.cluster import DBSCAN
 import numpy
 
-pos_eps=[0.35,0.40,0.42]
+pos_eps=[0.40]
 results=[]
 for opt in pos_eps:
     print("\nCon eps: {} ".format(opt))
@@ -141,6 +141,9 @@ for opt in pos_eps:
     results.append(res)
 
 df.to_csv("clusters.csv", encoding='utf-8', index=False)
+res = df.groupby(('group')).size()
+
+print(res)
 #
 
 
