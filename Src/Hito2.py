@@ -10,7 +10,7 @@ import numpy
 import itertools
 import seaborn as sns
 import pandas as pd
-from scipy.stats import kruskal
+from scipy.stats import kruskal,mannwhitneyu
 
 def evaluar(stat,p):
     alpha = 0.05
@@ -28,8 +28,8 @@ c1=df[df.group==1]
 c2=df[df.group==2]
 c3=df[df.group==3]
 
-variable_selected="bicycles"
-stat, p = kruskal(c0[variable_selected].as_matrix(), c1[variable_selected].as_matrix(), c2[variable_selected].as_matrix(), c3[variable_selected].as_matrix())
+variable_selected="cars"
+stat, p = kruskal(c3[variable_selected].as_matrix(), cm1[variable_selected].as_matrix(), cm2[variable_selected].as_matrix())
 print(stat)
 print(p)
 evaluar(stat,p)
