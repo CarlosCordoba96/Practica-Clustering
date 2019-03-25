@@ -11,7 +11,7 @@ import itertools
 import seaborn as sns
 import pandas as pd
 
-
+#Parametrizar las variables no numéricas
 def male(x):
     if x=='yes':
         return 1
@@ -37,12 +37,12 @@ df['license']=df['license'].map({'yes':1,'no':0})
 df['weekend']=df['weekend'].map({'yes':1,'no':0})
 
 import seaborn as sns
-
+#MAPA DE CALOR PARA VER CORRELACIÓN ENTRE LAS VARIABLES
 f, ax = plt.subplots(figsize=(10, 8))
 corr = df.corr()
 sns.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool), cmap=sns.diverging_palette(220, 10, as_cmap=True),
             square=True, ax=ax)
-
+#AGRUPAMOS LAS VARIABLES EN FUNCIÓN DEL MODO DE TRANSPORTE PARA VER SI HAY DIFERENCIAS
 walk=df[df.mode_main==0]
 walk.drop("mode_main",axis=1,inplace=True)
 car=df[df.mode_main==1]
@@ -52,6 +52,7 @@ bike.drop("mode_main",axis=1,inplace=True)
 pt=df[df.mode_main==3]
 pt.drop("mode_main",axis=1,inplace=True)
 
+#ANÁLISIS DE LA MEDIA DE DIFERENTES VARIABLES Y GRAFICAR LA GRAFICA DE LAS MEDIAS
 print("WALK")
 print(walk.weekend.mean())
 print(walk.cars.mean())
